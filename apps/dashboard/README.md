@@ -13,7 +13,7 @@ bun run dev
 
 Import from `$lib/components/ui/liquid`:
 
-- `LiquidSurface`: refractive glass container with rounded squircle displacement and blur presets.
+- `LiquidSurface`: refractive glass container with rounded round displacement and blur presets.
 - `LiquidPill`: compact badge/chip surface for status and metadata.
 - `LiquidRow`: list-row glass surface (optionally interactive).
 - `LiquidButton`: button primitive for future controls.

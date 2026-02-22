@@ -62,7 +62,7 @@ body {
   inset: 1px;
   z-index: 0;
   border-radius: inherit;
-  corner-shape: squircle;
+  corner-shape: round;
   pointer-events: none;
   background: linear-gradient(
     160deg,
@@ -107,7 +107,7 @@ body {
   background: linear-gradient(155deg, rgba(var(--liquid-tint-rgb), calc(var(--liquid-tint-opacity) + 0.04)), rgba(var(--liquid-tint-rgb), 0.04));
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: var(--radius-liquid-sm);
-  corner-shape: squircle;
+  corner-shape: round;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.24),
     inset 0 -1px 0 rgba(0, 0, 0, 0.18),
@@ -120,7 +120,7 @@ body {
   -webkit-backdrop-filter: blur(calc(var(--liquid-frost-blur) + 8px)) saturate(170%);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 9999px;
-  corner-shape: squircle;
+  corner-shape: round;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.28),
     inset 0 -1px 0 rgba(0, 0, 0, 0.14),
@@ -132,7 +132,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.24);
   color: rgba(255, 255, 255, 0.86);
   border-radius: 9999px;
-  corner-shape: squircle;
+  corner-shape: round;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.28),
     inset 0 -1px 0 rgba(0, 0, 0, 0.16),
@@ -219,7 +219,7 @@ body {
 .widget-grid {
   --widget-cols: 6;
   --widget-rows: 4;
-  --widget-pad: 24px;
+  --widget-pad: 14px;
 
   /* Denominators: cols + (cols−1)×(gap/cell) — absorb gaps into a single ratio */
   --denom-w: calc(var(--widget-cols) + (var(--widget-cols) - 1) * 22 / 170);
@@ -232,8 +232,8 @@ body {
   );
 
   /* Gaps derived from cell, matching macOS proportions */
-  --widget-col-gap: calc(var(--widget-cell) * 22 / 170);
-  --widget-row-gap: calc(var(--widget-cell) * 42 / 170);
+  --widget-col-gap: calc(var(--widget-cell) * 14 / 170);
+  --widget-row-gap: calc(var(--widget-cell) * 14 / 170);
 
   display: grid;
   grid-template-columns: repeat(var(--widget-cols), var(--widget-cell));

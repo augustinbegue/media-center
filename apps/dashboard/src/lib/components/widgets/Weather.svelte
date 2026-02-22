@@ -74,12 +74,12 @@
               <path d="M21 3L3 10.53v.98l6.84 2.65L12.48 21h.98L21 3z"/>
             </svg>
           </div>
-          <div class="text-[54px] font-light text-white tabular-nums leading-none tracking-tight mt-1">
+          <div class="text-[64px] font-light text-white tabular-nums leading-none tracking-tight mt-1">
             {Math.round(weather.current.temperature)}°
           </div>
         </div>
         <div class="flex flex-col items-end gap-1 mt-1">
-          <div class="text-2xl">
+          <div class="text-4xl leading-none">
             {icon(weather.current.weatherCode)}
           </div>
         </div>
@@ -87,12 +87,12 @@
 
       <div class="flex justify-between items-end w-full mt-auto">
         {#each upcomingHours as hour}
-          <div class="flex flex-col items-center gap-1.5">
-            <span class="text-[13px] font-medium text-white/90">
-              {new Date(hour.time).getHours()}
+          <div class="flex flex-col items-center gap-1">
+            <span class="text-[14px] font-medium text-white/70 tabular-nums">
+              {new Date(hour.time).getHours().toString().padStart(2, '0')}h
             </span>
-            <span class="text-lg select-none">{icon(hour.weatherCode)}</span>
-            <span class="text-[15px] font-medium text-white tabular-nums">{Math.round(hour.temperature)}°</span>
+            <span class="text-[22px] leading-none select-none">{icon(hour.weatherCode)}</span>
+            <span class="text-[17px] font-semibold text-white tabular-nums">{Math.round(hour.temperature)}°</span>
           </div>
         {/each}
       </div>
@@ -112,13 +112,14 @@
             <path d="M21 3L3 10.53v.98l6.84 2.65L12.48 21h.98L21 3z"/>
           </svg>
         </div>
-        <div class="text-[54px] font-light text-white tabular-nums leading-none tracking-tight mt-1">
+        <div class="text-[64px] font-light text-white tabular-nums leading-none tracking-tight mt-1">
           {Math.round(weather.current.temperature)}°
         </div>
       </div>
-      
-      <div class="flex flex-col gap-1 mt-auto">
-        <span class="text-xl">{icon(weather.current.weatherCode)}</span>
+
+      <div class="flex flex-col gap-2 mt-auto">
+        <span class="text-[32px] leading-none select-none">{icon(weather.current.weatherCode)}</span>
+        <span class="text-[13px] font-semibold text-white leading-snug">{label(weather.current.weatherCode)}</span>
       </div>
     {:else}
       <div class="mt-auto text-white/25 text-sm {error ? '' : 'liquid-skeleton rounded-xl px-3 py-2 inline-block'}">

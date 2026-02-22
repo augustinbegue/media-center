@@ -49,7 +49,6 @@
 -->
 <LiquidSurface
   class="{sizeMap[size]} min-h-0 min-w-0 {cls}"
-  radius={size === 'small' ? 'md' : 'lg'}
   {style}
 >
   <div
