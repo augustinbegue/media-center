@@ -1,0 +1,262 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-display: -apple-system, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+
+  --color-surface: #000000;
+  --color-text-primary: rgb(255 255 255 / 0.95);
+  --color-text-secondary: rgb(255 255 255 / 0.60);
+  --color-text-tertiary: rgb(255 255 255 / 0.38);
+  --color-accent: #0a84ff;
+  --color-accent-warm: #ff9f0a;
+  --color-accent-green: #30d158;
+
+  --radius-liquid-sm: 14px;
+  --radius-liquid-md: 20px;
+  --radius-liquid-lg: 28px;
+
+  --liquid-backdrop-soft: blur(18px) saturate(165%);
+  --liquid-backdrop-medium: blur(24px) saturate(190%);
+  --liquid-backdrop-strong: blur(30px) saturate(215%);
+}
+
+:root {
+  --liquid-shadow-color: #ffffff;
+  --liquid-shadow-blur: 20px;
+  --liquid-shadow-spread: -5px;
+  --liquid-tint-rgb: 255, 255, 255;
+  --liquid-tint-opacity: 0.04;
+  --liquid-frost-blur: 2px;
+  --liquid-noise-frequency: 0.008;
+  --liquid-distortion-strength: 77;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  color: var(--color-text-primary);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-image:
+    radial-gradient(ellipse 90% 60% at 15% 10%, rgba(80, 130, 255, 0.22) 0%, transparent 58%),
+    radial-gradient(ellipse 85% 70% at 85% 92%, rgba(120, 70, 210, 0.20) 0%, transparent 62%),
+    radial-gradient(ellipse 60% 55% at 70% 25%, rgba(24, 54, 116, 0.28) 0%, transparent 72%),
+    linear-gradient(180deg, rgba(2, 4, 14, 0.9) 0%, rgba(0, 0, 0, 1) 100%);
+}
+
+.liquid-surface {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.2);
+}
+
+.liquid-surface::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.22) 0%,
+    rgba(255, 255, 255, 0.05) 38%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  mix-blend-mode: screen;
+  opacity: 0.62;
+}
+
+.liquid-surface-soft {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.liquid-surface-strong {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.liquid-interactive {
+  transition: box-shadow 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.liquid-interactive:hover {
+  background: linear-gradient(
+    155deg,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0.11) 36%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.46),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    inset 1px 0 0 rgba(255, 255, 255, 0.16),
+    inset -1px 0 0 rgba(255, 255, 255, 0.1),
+    0 20px 56px rgba(0, 0, 0, 0.5),
+    0 6px 14px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
+}
+
+.liquid-row {
+  background: linear-gradient(155deg, rgba(var(--liquid-tint-rgb), calc(var(--liquid-tint-opacity) + 0.04)), rgba(var(--liquid-tint-rgb), 0.04));
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-liquid-sm);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+    0 8px 18px rgba(0, 0, 0, 0.28);
+}
+
+.liquid-pill {
+  background: linear-gradient(160deg, rgba(var(--liquid-tint-rgb), calc(var(--liquid-tint-opacity) + 0.08)), rgba(var(--liquid-tint-rgb), 0.05));
+  backdrop-filter: blur(calc(var(--liquid-frost-blur) + 8px)) saturate(170%);
+  -webkit-backdrop-filter: blur(calc(var(--liquid-frost-blur) + 8px)) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.14),
+    0 6px 16px rgba(0, 0, 0, 0.26);
+}
+
+.liquid-button {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.07));
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  color: rgba(255, 255, 255, 0.86);
+  border-radius: 9999px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.16),
+    0 8px 18px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.liquid-button:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.1));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.16),
+    0 14px 30px rgba(0, 0, 0, 0.36);
+}
+
+.liquid-divider {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.02));
+}
+
+.liquid-skeleton {
+  background: linear-gradient(100deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
+  background-size: 220% 100%;
+  animation: liquid-skeleton 1.3s ease infinite;
+}
+
+@keyframes liquid-skeleton {
+  0% { background-position: 140% 0; }
+  100% { background-position: -120% 0; }
+}
+
+/* ── Scene transitions ─────────────────────────────────────────────────────── */
+.scene-enter {
+  animation: scene-in 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes scene-in {
+  from { opacity: 0; transform: scale(1.015); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ── Card entrance ─────────────────────────────────────────────────────────── */
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.card-enter {
+  animation: card-in 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+/* ── Cursor hide after idle ────────────────────────────────────────────────── */
+.cursor-hidden { cursor: none; }
+
+/* ── No scrollbars (TV mode) ───────────────────────────────────────────────── */
+::-webkit-scrollbar { display: none; }
+* { scrollbar-width: none; }
+
+/* ═══ Widget Grid System — macOS desktop widget sizes ════════════════════════
+ *
+ *  macOS reference dimensions (pt):
+ *    Small  170 × 170    Medium  362 × 170
+ *    Large  362 × 382    XL      748 × 382
+ *
+ *  Derived grid parameters:
+ *    cell  = 170 pt      col-gap = 22 pt (362 − 2×170)
+ *                         row-gap = 42 pt (382 − 2×170)
+ *
+ *  The cell size is computed to fit inside the viewport in both axes,
+ *  and the asymmetric gaps are proportional to the cell size.
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+.widget-grid {
+  --widget-cols: 6;
+  --widget-rows: 4;
+  --widget-pad: 24px;
+
+  /* Denominators: cols + (cols−1)×(gap/cell) — absorb gaps into a single ratio */
+  --denom-w: calc(var(--widget-cols) + (var(--widget-cols) - 1) * 22 / 170);
+  --denom-h: calc(var(--widget-rows) + (var(--widget-rows) - 1) * 42 / 170);
+
+  /* Cell = min of width-fit and height-fit so grid never overflows */
+  --widget-cell: min(
+    calc((100vw - 2 * var(--widget-pad)) / var(--denom-w)),
+    calc((100vh - 2 * var(--widget-pad)) / var(--denom-h))
+  );
+
+  /* Gaps derived from cell, matching macOS proportions */
+  --widget-col-gap: calc(var(--widget-cell) * 22 / 170);
+  --widget-row-gap: calc(var(--widget-cell) * 42 / 170);
+
+  display: grid;
+  grid-template-columns: repeat(var(--widget-cols), var(--widget-cell));
+  grid-auto-rows: var(--widget-cell);
+  column-gap: var(--widget-col-gap);
+  row-gap: var(--widget-row-gap);
+  padding: var(--widget-pad);
+  width: 100%;
+  height: 100%;
+  align-content: center;
+  justify-content: center;
+}
+
+/* macOS system-family widget sizes */
+.widget-small       { grid-column: span 1; grid-row: span 1; }
+.widget-medium      { grid-column: span 2; grid-row: span 1; }
+.widget-large       { grid-column: span 2; grid-row: span 2; }
+.widget-extra-large { grid-column: span 4; grid-row: span 2; }
+
+/* Widget typographic label (Apple HIG: 11pt+, semibold, muted) */
+.widget-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.50);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Widget internal item card (flat, subtle — used inside widget content) */
+.widget-item-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.widget-item-card:hover {
+  background: rgba(255, 255, 255, 0.10);
+  transform: scale(1.02);
+}

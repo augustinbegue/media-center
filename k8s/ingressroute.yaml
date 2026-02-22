@@ -1,0 +1,16 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: media-center-dashboard
+  namespace: media
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`media.server.begue.cc`)
+      kind: Rule
+      services:
+        - name: media-center-dashboard
+          port: 3000
+  tls:
+    certResolver: letsencrypt

@@ -1,0 +1,13 @@
+{
+  "name": "media-center",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "bun --filter dashboard dev",
+    "build": "bun --filter '*' build",
+    "agent": "cd apps/nuc-agent && bun run src/index.ts"
+  }
+}
