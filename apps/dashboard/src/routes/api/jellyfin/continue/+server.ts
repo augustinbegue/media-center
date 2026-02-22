@@ -3,6 +3,7 @@ import { env } from '$env/dynamic/private';
 import type { RequestHandler } from './$types';
 
 const BASE = env.JELLYFIN_URL ?? '';
+const PUBLIC_BASE = env.JELLYFIN_PUBLIC_URL ?? BASE;
 const API_KEY = env.JELLYFIN_API_KEY ?? '';
 const HEADERS = { 'X-Emby-Token': API_KEY, 'Accept': 'application/json' };
 
@@ -42,9 +43,9 @@ export const GET: RequestHandler = async () => {
       ? `S${String(item.ParentIndexNumber).padStart(2, '0')}E${String(item.IndexNumber).padStart(2, '0')}`
       : undefined,
     imageUrl: item.BackdropImageTags && (item.BackdropImageTags as string[]).length > 0
-      ? `${BASE}/Items/${item.Id}/Images/Backdrop?api_key=${API_KEY}&maxHeight=200`
+      ? `${PUBLIC_BASE}/Items/${item.Id}/Images/Backdrop?api_key=${API_KEY}&maxHeight=200`
       : item.ImageTags && (item.ImageTags as Record<string, unknown>).Thumb
-        ? `${BASE}/Items/${item.Id}/Images/Thumb?api_key=${API_KEY}&maxHeight=200`
+        ? `${PUBLIC_BASE}/Items/${item.Id}/Images/Thumb?api_key=${API_KEY}&maxHeight=200`
         : null,
     playedPercent: (item.UserData as Record<string, unknown>)?.PlayedPercentage ?? 0,
   }));

@@ -161,24 +161,34 @@ body {
   100% { background-position: -120% 0; }
 }
 
-/* ── Scene transitions ─────────────────────────────────────────────────────── */
-.scene-enter {
-  animation: scene-in 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+/* ── Scene transition ──────────────────────────────────────────────────────── */
+/*
+ * Glass compositing constraint: backdrop-filter + SVG filter on ::after only
+ * works when the glass element itself is NOT inside an opacity-animated ancestor.
+ * (An opacity animation promotes the container to a GPU compositing layer, and
+ *  backdrop-filter then only sees that layer's transparent contents.)
+ *
+ * Solution: render glass immediately at opacity:1, overlay a sibling div that
+ * fades OUT from black. The glass is never a child of an animated layer.
+ */
+.scene-fade-overlay {
+  background: #000;
+  animation: scene-overlay-out 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
-@keyframes scene-in {
-  from { opacity: 0; transform: scale(1.015); }
-  to   { opacity: 1; transform: scale(1); }
+@keyframes scene-overlay-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
 }
 
-/* ── Card entrance ─────────────────────────────────────────────────────────── */
-@keyframes card-in {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
+/* ── Widget content entrance (applied to inner content div, NOT the glass shell) */
 .card-enter {
   animation: card-in 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ── Cursor hide after idle ────────────────────────────────────────────────── */

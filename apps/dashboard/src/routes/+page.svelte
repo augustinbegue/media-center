@@ -28,16 +28,20 @@
 
 <div class="absolute inset-0">
   {#if scene.current === 'ambient'}
-    <div class="scene-enter absolute inset-0">
+    <div class="absolute inset-0">
       <AmbientScene />
+      <!-- Sibling overlay fades OUT so glass is never inside an animated layer -->
+      <div class="scene-fade-overlay absolute inset-0 pointer-events-none"></div>
     </div>
   {:else if scene.current === 'dashboard'}
-    <div class="scene-enter absolute inset-0">
+    <div class="absolute inset-0">
       <DashboardScene />
+      <div class="scene-fade-overlay absolute inset-0 pointer-events-none"></div>
     </div>
   {:else if scene.current === 'nowPlaying'}
-    <div class="scene-enter absolute inset-0">
+    <div class="absolute inset-0">
       <NowPlayingScene />
+      <div class="scene-fade-overlay absolute inset-0 pointer-events-none"></div>
     </div>
   {:else if scene.current === 'hidden'}
     <div class="absolute inset-0">

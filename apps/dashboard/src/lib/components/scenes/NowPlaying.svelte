@@ -13,15 +13,11 @@
       class="absolute inset-0 scale-110"
       style="background: url({artwork}) center/cover no-repeat; filter: blur(60px) brightness(0.4) saturate(1.8);"
     ></div>
-  {:else}
-    <div
-      class="absolute inset-0"
-      style="background: radial-gradient(ellipse 80% 80% at 30% 50%, rgba(30,50,120,0.6) 0%, transparent 70%), radial-gradient(ellipse 60% 60% at 70% 60%, rgba(80,20,80,0.4) 0%, transparent 70%);"
-    ></div>
-  {/if}
 
-  <!-- Vignette -->
-  <div class="absolute inset-0" style="background: rgba(0,0,0,0.4);"></div>
+
+    <!-- Vignette -->
+    <div class="absolute inset-0" style="background: rgba(0,0,0,0.4);"></div>
+  {/if}
 
   <!-- Content -->
   <div class="absolute inset-0 flex items-center justify-center">

@@ -49,7 +49,6 @@
 <!-- Apple HIG large widget: scrollable list -->
 <div class="flex flex-col h-full">
   <div class="flex items-center gap-1.5 px-4 pt-4 pb-2">
-    <span class="text-sm leading-none select-none">📅</span>
     <span class="widget-label">Upcoming</span>
   </div>
 

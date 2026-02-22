@@ -64,7 +64,6 @@
     <!-- Left: current conditions -->
     <div class="flex flex-col flex-1 min-w-0">
       <div class="flex items-center gap-1.5">
-        <span class="text-sm leading-none select-none">🌤</span>
         <span class="widget-label">Weather</span>
       </div>
       {#if weather}

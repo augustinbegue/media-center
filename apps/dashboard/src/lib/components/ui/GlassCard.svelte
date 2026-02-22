@@ -6,7 +6,6 @@
     large?: boolean;
     hover?: boolean;
     style?: string;
-    animate?: boolean;
   }
 
   let {
@@ -14,7 +13,6 @@
     large = false,
     hover = false,
     style = '',
-    animate = false,
     children,
   }: Props & { children?: import('svelte').Snippet } = $props();
 </script>
@@ -23,7 +21,6 @@
   class={cls}
   radius={large ? 'lg' : 'md'}
   interactive={hover}
-  animate={animate}
   style={style}
 >
   {@render children?.()}

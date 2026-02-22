@@ -55,7 +55,6 @@
   <!-- Apple HIG small widget layout -->
   <div class="flex flex-col h-full p-4">
     <div class="flex items-center gap-1.5">
-      <span class="text-sm leading-none select-none">🕐</span>
       <span class="widget-label">Clock</span>
     </div>
     <div class="mt-auto">

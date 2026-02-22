@@ -5,7 +5,6 @@
     class?: string;
     radius?: 'sm' | 'md' | 'lg';
     interactive?: boolean;
-    animate?: boolean;
     tone?: 'soft' | 'default' | 'strong';
     style?: string;
     blur?: 'soft' | 'medium' | 'strong';
@@ -15,7 +14,6 @@
     class: cls = '',
     radius = 'md',
     interactive = false,
-    animate = false,
     tone = 'default',
     style = '',
     blur = 'medium',
@@ -42,7 +40,7 @@
   - Content sits at z-index: 1
 -->
 <div
-  class="liquid-glass-outer {radiusClass} {interactive ? 'liquid-interactive' : ''} {animate ? 'card-enter' : ''} {cls}"
+  class="liquid-glass-outer {radiusClass} {interactive ? 'liquid-interactive' : ''} {cls}"
   style="--glass-frost-blur: {frostBlurPx}px; --glass-tint-bg: rgba(var(--liquid-tint-rgb), {tintOpacity}); --glass-shadow: inset 0 0 var(--liquid-shadow-blur) var(--liquid-shadow-spread) var(--liquid-shadow-color); {style}"
 >
   <div class="relative" style="z-index:1;">

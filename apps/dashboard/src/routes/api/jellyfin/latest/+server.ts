@@ -3,6 +3,7 @@ import { env } from '$env/dynamic/private';
 import type { RequestHandler } from './$types';
 
 const BASE = env.JELLYFIN_URL ?? '';
+const PUBLIC_BASE = env.JELLYFIN_PUBLIC_URL ?? BASE;
 const API_KEY = env.JELLYFIN_API_KEY ?? '';
 const HEADERS = { 'X-Emby-Token': API_KEY, 'Accept': 'application/json' };
 
@@ -41,7 +42,7 @@ export const GET: RequestHandler = async () => {
       type: i.Type,
       year: i.ProductionYear,
       imageUrl: (i.ImageTags as Record<string, unknown>)?.Primary
-        ? `${BASE}/Items/${i.Id}/Images/Primary?api_key=${API_KEY}&maxHeight=300`
+        ? `${PUBLIC_BASE}/Items/${i.Id}/Images/Primary?api_key=${API_KEY}&maxHeight=300`
         : null,
     };
   });

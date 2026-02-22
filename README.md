@@ -64,17 +64,20 @@ cd apps/nuc-agent && bun run dev
 
 ### Dashboard (`apps/dashboard/.env`)
 ```
-AGENT_WS_URL=ws://localhost:9100
-WEATHER_LAT=48.8566
-WEATHER_LON=2.3522
+PUBLIC_AGENT_WS_URL=ws://localhost:9100
+PUBLIC_WEATHER_LAT=48.8566
+PUBLIC_WEATHER_LON=2.3522
 JELLYFIN_URL=https://jellyfin.server.begue.cc
+JELLYFIN_PUBLIC_URL=https://jellyfin.server.begue.cc
 JELLYFIN_API_KEY=<from OpenBao>
 SONARR_URL=https://sonarr.server.begue.cc
+SONARR_PUBLIC_URL=https://sonarr.server.begue.cc
 SONARR_API_KEY=<from OpenBao>
 RADARR_URL=https://radarr.server.begue.cc
+RADARR_PUBLIC_URL=https://radarr.server.begue.cc
 RADARR_API_KEY=<from OpenBao>
-AMBIENT_START=23:00
-AMBIENT_END=07:00
+PUBLIC_AMBIENT_START=23:00
+PUBLIC_AMBIENT_END=07:00
 ```
 
 ### NUC Agent

@@ -41,11 +41,21 @@
   };
 </script>
 
+<!--
+  The glass shell (LiquidSurface) is rendered immediately at opacity:1 so
+  backdrop-filter + SVG distortion composite correctly from the first frame.
+  Only the inner content div gets the entrance animation — it has no
+  backdrop-filter so transform/opacity animations are safe on it.
+-->
 <LiquidSurface
   class="{sizeMap[size]} min-h-0 min-w-0 {cls}"
   radius={size === 'small' ? 'md' : 'lg'}
-  {animate}
-  style="{animationDelay ? `animation-delay: ${animationDelay}ms; ` : ''}{style}"
+  {style}
 >
-  {@render children?.()}
+  <div
+    class="contents {animate ? 'card-enter' : ''}"
+    style={animate && animationDelay ? `animation-delay:${animationDelay}ms;` : ''}
+  >
+    {@render children?.()}
+  </div>
 </LiquidSurface>
