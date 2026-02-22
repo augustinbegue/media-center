@@ -55,7 +55,7 @@ Write-Host "[setup] Writing start-agent.cmd..."
 $agentCmd = @"
 @echo off
 set UXPLAY_PATH=C:\msys64\ucrt64\bin\uxplay.exe
-set UXPLAY_ARGS=-h265 -s 3840x2160 -fps 60 -as wasapisink -vs fakevideosink -vsync -taper -ca C:\Users\augus\cover.jpg -md C:\Users\augus\metadata.txt
+set UXPLAY_ARGS=-h265 -s 3840x2160 -fps 60 -as wasapisink -vs d3d11videosink -fs -vsync -taper -ca C:\Users\augus\cover.jpg -md C:\Users\augus\metadata.txt
 set UXPLAY_ARTWORK_PATH=C:\Users\augus\cover.jpg
 set UXPLAY_METADATA_PATH=C:\Users\augus\metadata.txt
 set BONJOUR_SDK_HOME=C:\Program Files\Bonjour SDK
@@ -63,11 +63,18 @@ set BONJOUR_SDK_HOME=C:\Program Files\Bonjour SDK
 "@
 Set-Content -Path "$env:USERPROFILE\start-agent.cmd" -Value $agentCmd
 
+# ── Write hidden VBScript launcher ────────────────────────────────────────────
+Write-Host "[setup] Writing start-agent-hidden.vbs..."
+$cmdPath = "$env:USERPROFILE\start-agent.cmd"
+$vbsContent = "Set WshShell = CreateObject(""WScript.Shell"")" + [Environment]::NewLine
+$vbsContent += "WshShell.Run ""$cmdPath"", 0, False" + [Environment]::NewLine
+Set-Content -Path "$env:USERPROFILE\start-agent-hidden.vbs" -Value $vbsContent -Encoding ASCII
+
 # ── Scheduled task: Agent ─────────────────────────────────────────────────────
 Write-Host "[setup] Registering MediaCenter-Agent task..."
 $agentAction = New-ScheduledTaskAction `
-  -Execute "cmd.exe" `
-  -Argument "/C `"$env:USERPROFILE\start-agent.cmd`""
+  -Execute "wscript.exe" `
+  -Argument "`"$env:USERPROFILE\start-agent-hidden.vbs`""
 
 $agentTrigger = New-ScheduledTaskTrigger -AtLogOn -User $NUC_USER
 
