@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: dashboard
-          image: registry.server.begue.cc/media-center-dashboard:latest
+          image: ghcr.io/augustinbegue/media-center/dashboard:latest
           ports:
             - containerPort: 3000
           env:
