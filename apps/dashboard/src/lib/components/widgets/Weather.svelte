@@ -10,6 +10,7 @@
 
   interface WeatherData {
     current: { temperature: number; weatherCode: number; windspeed: number; humidity: number };
+    hourly: { time: string; temperature: number; weatherCode: number }[];
     daily: { date: string; tempMax: number; tempMin: number; weatherCode: number }[];
   }
 
@@ -37,6 +38,9 @@
     } catch { error = true; }
   }
 
+  let currentHourIndex = $derived(weather ? weather.hourly.findIndex(h => new Date(h.time).getTime() > Date.now()) - 1 : 0);
+  let upcomingHours = $derived(weather ? weather.hourly.slice(Math.max(0, currentHourIndex), Math.max(0, currentHourIndex) + 6) : []);
+
   onMount(() => {
     fetchWeather();
     const id = setInterval(fetchWeather, 10 * 60 * 1000);
@@ -59,66 +63,62 @@
   </div>
 
 {:else if variant === 'medium'}
-  <!-- Apple HIG medium widget: current + forecast row -->
-  <div class="flex h-full p-4 gap-5">
-    <!-- Left: current conditions -->
-    <div class="flex flex-col flex-1 min-w-0">
-      <div class="flex items-center gap-1.5">
-        <span class="widget-label">Weather</span>
-      </div>
-      {#if weather}
-        <div class="mt-auto">
-          <div class="text-[42px] font-bold text-white/95 tabular-nums leading-none tracking-tight">
-            {Math.round(weather.current.temperature)}°C
+  <!-- Apple HIG medium widget: current + hourly forecast -->
+  <div class="flex flex-col h-full p-4 justify-between">
+    {#if weather}
+      <div class="flex justify-between items-start">
+        <div class="flex flex-col">
+          <div class="flex items-center gap-1 text-white font-semibold text-[15px]">
+            Paris
+            <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M21 3L3 10.53v.98l6.84 2.65L12.48 21h.98L21 3z"/>
+            </svg>
           </div>
-          <div class="text-[13px] text-white/55 font-medium mt-1">{label(weather.current.weatherCode)}</div>
-          <div class="text-[11px] text-white/30 mt-0.5">
-            Wind {Math.round(weather.current.windspeed)} km/h · {weather.current.humidity}%
+          <div class="text-[54px] font-light text-white tabular-nums leading-none tracking-tight mt-1">
+            {Math.round(weather.current.temperature)}°
           </div>
         </div>
-      {:else}
-        <div class="mt-auto text-white/25 text-sm">{error ? 'Unavailable' : 'Loading…'}</div>
-      {/if}
-    </div>
+        <div class="flex flex-col items-end gap-1 mt-1">
+          <div class="text-2xl">
+            {icon(weather.current.weatherCode)}
+          </div>
+        </div>
+      </div>
 
-    <!-- Divider -->
-    <div class="w-px bg-white/10 self-stretch my-2"></div>
-
-    <!-- Right: 5-day forecast -->
-    {#if weather}
-      <div class="flex items-end gap-2 flex-1">
-        {#each weather.daily.slice(0, 5) as day}
-          <div class="flex flex-col items-center gap-1.5 flex-1">
-            <span class="text-[9px] font-bold text-white/35 uppercase tracking-widest">
-              {new Date(day.date).toLocaleDateString('en-US', { weekday: 'short' })}
+      <div class="flex justify-between items-end w-full mt-auto">
+        {#each upcomingHours as hour}
+          <div class="flex flex-col items-center gap-1.5">
+            <span class="text-[13px] font-medium text-white/90">
+              {new Date(hour.time).getHours()}
             </span>
-            <span class="text-base select-none">{icon(day.weatherCode)}</span>
-            <span class="text-xs font-semibold text-white/80 tabular-nums">{Math.round(day.tempMax)}°</span>
-            <span class="text-[9px] text-white/30 tabular-nums">{Math.round(day.tempMin)}°</span>
+            <span class="text-lg select-none">{icon(hour.weatherCode)}</span>
+            <span class="text-[15px] font-medium text-white tabular-nums">{Math.round(hour.temperature)}°</span>
           </div>
         {/each}
       </div>
+    {:else}
+      <div class="mt-auto text-white/25 text-sm">{error ? 'Unavailable' : 'Loading…'}</div>
     {/if}
   </div>
 
 {:else}
   <!-- Apple HIG small widget: current conditions -->
-  <div class="flex flex-col h-full p-4">
-    <div class="flex items-center justify-between">
-      <span class="widget-label">Weather</span>
-      {#if weather}
-        <span class="text-2xl select-none">{icon(weather.current.weatherCode)}</span>
-      {/if}
-    </div>
+  <div class="flex flex-col h-full p-4 justify-between">
     {#if weather}
-      <div class="mt-auto">
-        <div class="text-[44px] font-bold text-white/95 tabular-nums leading-none tracking-tight">
+      <div class="flex flex-col">
+        <div class="flex items-center gap-1 text-white font-semibold text-[15px]">
+          Paris
+          <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M21 3L3 10.53v.98l6.84 2.65L12.48 21h.98L21 3z"/>
+          </svg>
+        </div>
+        <div class="text-[54px] font-light text-white tabular-nums leading-none tracking-tight mt-1">
           {Math.round(weather.current.temperature)}°
         </div>
-        <div class="text-[13px] text-white/50 mt-1 font-medium">{label(weather.current.weatherCode)}</div>
-        <div class="text-[11px] text-white/30 mt-0.5">
-          H:{Math.round(weather.daily[0]?.tempMax ?? 0)}° L:{Math.round(weather.daily[0]?.tempMin ?? 0)}°
-        </div>
+      </div>
+      
+      <div class="flex flex-col gap-1 mt-auto">
+        <span class="text-xl">{icon(weather.current.weatherCode)}</span>
       </div>
     {:else}
       <div class="mt-auto text-white/25 text-sm {error ? '' : 'liquid-skeleton rounded-xl px-3 py-2 inline-block'}">

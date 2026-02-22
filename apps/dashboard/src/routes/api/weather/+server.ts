@@ -12,6 +12,7 @@ export const GET: RequestHandler = async () => {
     latitude: LAT,
     longitude: LON,
     current: 'temperature_2m,weather_code,wind_speed_10m,relative_humidity_2m',
+    hourly: 'temperature_2m,weather_code',
     daily: 'temperature_2m_max,temperature_2m_min,weather_code',
     timezone: 'auto',
     forecast_days: '7',
@@ -35,6 +36,11 @@ export const GET: RequestHandler = async () => {
       windspeed: raw.current.wind_speed_10m,
       humidity: raw.current.relative_humidity_2m,
     },
+    hourly: (raw.hourly.time as string[]).map((time: string, i: number) => ({
+      time,
+      temperature: raw.hourly.temperature_2m[i],
+      weatherCode: raw.hourly.weather_code[i],
+    })),
     daily: (raw.daily.time as string[]).map((date: string, i: number) => ({
       date,
       tempMax: raw.daily.temperature_2m_max[i],

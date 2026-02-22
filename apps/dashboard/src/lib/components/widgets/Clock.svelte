@@ -53,15 +53,25 @@
 
 {:else}
   <!-- Apple HIG small widget layout -->
-  <div class="flex flex-col h-full p-4">
-    <div class="flex items-center gap-1.5">
-      <span class="widget-label">Clock</span>
-    </div>
-    <div class="mt-auto">
-      <div class="text-[44px] font-bold text-white/95 tabular-nums tracking-tight leading-none">
-        {time}
-      </div>
-      <div class="text-[13px] text-white/50 mt-2 font-medium">{date}</div>
+  <div class="relative flex items-center justify-center h-full w-full">
+    <!-- Tick marks border -->
+    <svg class="absolute inset-0 w-full h-full pointer-events-none">
+      <rect
+        class="w-[calc(100%-24px)] h-[calc(100%-24px)]"
+        x="12" y="12" rx="28"
+        fill="none"
+        stroke="rgba(255, 255, 255, 0.9)"
+        stroke-width="6"
+        stroke-dasharray="2 8"
+      />
+    </svg>
+    
+    <div class="text-[62px] font-bold text-white/90 z-10 flex items-center justify-center w-full h-full"
+      style="transform: scaleY(160%); transform-origin: center;
+        font: 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, sans-serif;
+      "
+    >
+      {time}
     </div>
   </div>
 {/if}

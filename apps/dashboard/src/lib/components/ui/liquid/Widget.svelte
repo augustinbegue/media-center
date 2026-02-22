@@ -53,7 +53,7 @@
   {style}
 >
   <div
-    class="contents {animate ? 'card-enter' : ''}"
+    class="contents h-full {animate ? 'card-enter' : ''}"
     style={animate && animationDelay ? `animation-delay:${animationDelay}ms;` : ''}
   >
     {@render children?.()}

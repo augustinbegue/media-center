@@ -28,7 +28,7 @@
   let toneMultiplier = $derived(tone === 'soft' ? 0.8 : tone === 'strong' ? 1.25 : 1);
   let tintOpacity = $derived(Math.min(1, (settings.tintOpacity / 100) * toneMultiplier));
 
-  let radiusClass = $derived(radius === 'sm' ? 'rounded-[14px]' : radius === 'lg' ? 'rounded-[28px]' : 'rounded-[20px]');
+  let radiusClass = "rounded-[60px]";
 </script>
 
 <!--
@@ -41,9 +41,9 @@
 -->
 <div
   class="liquid-glass-outer {radiusClass} {interactive ? 'liquid-interactive' : ''} {cls}"
-  style="--glass-frost-blur: {frostBlurPx}px; --glass-tint-bg: rgba(var(--liquid-tint-rgb), {tintOpacity}); --glass-shadow: inset 0 0 var(--liquid-shadow-blur) var(--liquid-shadow-spread) var(--liquid-shadow-color); {style}"
+  style="--glass-frost-blur: {frostBlurPx}px; --glass-tint-bg: rgba(var(--liquid-tint-rgb), {tintOpacity}); --glass-shadow: inset 0 0 var(--liquid-shadow-blur) var(--liquid-shadow-spread) var(--liquid-shadow-color); {style} corner-shape: squircle;"
 >
-  <div class="relative" style="z-index:1;">
+  <div class="relative h-full" style="z-index:1;">
     {@render children?.()}
   </div>
 </div>
@@ -64,6 +64,7 @@
     inset: 0;
     z-index: 0;
     border-radius: inherit;
+    corner-shape: squircle;
     pointer-events: none;
     background-color: var(--glass-tint-bg);
     box-shadow: var(--glass-shadow);
@@ -76,6 +77,7 @@
     inset: 0;
     z-index: -1;
     border-radius: inherit;
+    corner-shape: squircle;
     backdrop-filter: blur(var(--glass-frost-blur, 2px));
     -webkit-backdrop-filter: blur(var(--glass-frost-blur, 2px));
     filter: url(#glass-distortion);
