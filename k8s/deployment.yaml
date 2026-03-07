@@ -38,6 +38,13 @@ spec:
             # Agent URL (client-side, connects from NUC browser to localhost)
             - name: PUBLIC_AGENT_WS_URL
               value: "ws://localhost:9100"
+            # Immich widget behavior (server-side)
+            - name: IMMICH_FEATURED_SOURCE
+              value: "explore"
+            - name: IMMICH_FETCH_SIZE
+              value: "8"
+            - name: IMMICH_ALLOW_RANDOM_FALLBACK
+              value: "false"
           envFrom:
             - secretRef:
                 name: media-center-secrets

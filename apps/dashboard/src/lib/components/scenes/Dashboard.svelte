@@ -5,6 +5,8 @@
   import ContinueWatching from '$lib/components/widgets/ContinueWatching.svelte';
   import RecentlyAdded from '$lib/components/widgets/RecentlyAdded.svelte';
   import UpcomingMedia from '$lib/components/widgets/UpcomingMedia.svelte';
+  import Transit from '$lib/components/widgets/Transit.svelte';
+  import ImmichPhotos from '$lib/components/widgets/ImmichPhotos.svelte';
   import { agent } from '$lib/stores/agent.svelte';
 </script>
 
@@ -62,6 +64,16 @@
     <!-- Row 2, col 3-4: Recently Added (medium) -->
     <Widget size="medium" animate animationDelay={250}>
       <RecentlyAdded />
+    </Widget>
+
+    <!-- Row 3, col 1-2: Paris transit departures (medium) -->
+    <Widget size="medium" animate animationDelay={300}>
+      <Transit />
+    </Widget>
+
+    <!-- Row 3, col 3-4: Immich photos (medium) -->
+    <Widget size="medium" animate animationDelay={350}>
+      <ImmichPhotos />
     </Widget>
   </div>
 </div>

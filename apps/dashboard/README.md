@@ -9,6 +9,37 @@ bun install
 bun run dev
 ```
 
+## Immich widget
+
+The dashboard includes an `Immich` widget backed by server routes:
+
+- `GET /api/immich/photos`: resolves featured photos first, then falls back to album photos.
+- `GET /api/immich/assets/[id]/thumbnail`: proxies thumbnails so the browser never sees Immich credentials.
+
+Fallback order:
+
+1. Featured source (`IMMICH_FEATURED_SOURCE=explore|memories|off`)
+2. Fallback album (`IMMICH_FALLBACK_ALBUM_ID` via `POST /search/metadata`)
+3. Optional random fallback (`IMMICH_ALLOW_RANDOM_FALLBACK=true` via `POST /search/random`)
+
+Required server env vars:
+
+- `IMMICH_URL`
+- `IMMICH_API_KEY`
+- `IMMICH_FALLBACK_ALBUM_ID`
+
+Optional server env vars:
+
+- `IMMICH_FEATURED_SOURCE` (default `explore`)
+- `IMMICH_FETCH_SIZE` (default `8`, max `24`)
+- `IMMICH_ALLOW_RANDOM_FALLBACK` (default `false`)
+
+Recommended API key permissions:
+
+- `asset.read`
+- `asset.view`
+- `album.read`
+
 ## Liquid component library
 
 Import from `$lib/components/ui/liquid`:
