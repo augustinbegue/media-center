@@ -55,7 +55,7 @@ Write-Host "[setup] Writing start-agent.cmd..."
 $agentCmd = @"
 @echo off
 set UXPLAY_PATH=C:\msys64\ucrt64\bin\uxplay.exe
-set UXPLAY_ARGS=-h265 -s 3840x2160 -fps 60 -as wasapisink -vs d3d11videosink -fs -vsync -taper -ca C:\Users\augus\cover.jpg -md C:\Users\augus\metadata.txt
+set UXPLAY_ARGS=-s 1920x1080 -fps 60 -fs -vs d3d11videosink -as wasapisink -vsync -taper -ca C:\Users\augus\cover.jpg -md C:\Users\augus\metadata.txt
 set UXPLAY_ARTWORK_PATH=C:\Users\augus\cover.jpg
 set UXPLAY_METADATA_PATH=C:\Users\augus\metadata.txt
 set BONJOUR_SDK_HOME=C:\Program Files\Bonjour SDK
