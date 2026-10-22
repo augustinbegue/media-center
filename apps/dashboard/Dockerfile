@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # ── Build stage ──────────────────────────────────────────────────────────────
-FROM node:22-slim AS builder
+FROM node:22.23.4-slim AS builder
 WORKDIR /app
 
 # Install bun
@@ -19,7 +19,7 @@ RUN bun install --frozen-lockfile
 RUN cd apps/dashboard && bun run build
 
 # ── Runtime stage ─────────────────────────────────────────────────────────────
-FROM node:22-slim AS runner
+FROM node:22.23.4-slim AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
